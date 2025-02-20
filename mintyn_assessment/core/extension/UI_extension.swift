@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 
-// UIColor Extension for Gold Gradient
 extension UIColor {
     static let gold = UIColor(red: 212/255, green: 175/255, blue: 55/255, alpha: 1.0)
     

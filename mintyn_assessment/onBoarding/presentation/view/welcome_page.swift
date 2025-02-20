@@ -9,13 +9,25 @@ import UIKit
 
 class WelcomeViewController: UIViewController {
     
+    private let viewModel = WelcomeViewModel()
     private let loginButton = UIButton(type: .system)
     private let createAccountButton = UIButton(type: .system)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupBindings()
+
     }
+    
+    private func setupBindings() {
+           viewModel.navigateToLogin = { [weak self] in
+               guard let self = self else { return }
+               let loginVC = LoginViewController()
+               loginVC.modalPresentationStyle = .fullScreen
+               self.present(loginVC, animated: true, completion: nil)
+           }
+       }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -38,7 +50,7 @@ class WelcomeViewController: UIViewController {
         
        
         let bottomSheetView = UIView()
-        bottomSheetView.backgroundColor = UIColor(white: 0.1, alpha: 1.0) // Dark background
+        bottomSheetView.backgroundColor = UIColor(white: 0.1, alpha: 1.0) 
         bottomSheetView.layer.cornerRadius = 20
         bottomSheetView.layer.masksToBounds = true
         view.addSubview(bottomSheetView)
@@ -67,6 +79,7 @@ class WelcomeViewController: UIViewController {
         loginButton.setTitleColor(.black, for: .normal)
         loginButton.layer.cornerRadius = 10
         loginButton.clipsToBounds = true
+        
 
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [
@@ -85,7 +98,7 @@ class WelcomeViewController: UIViewController {
 
         loginButton.setBackgroundImage(gradientImage, for: .normal)
         bottomSheetView.addSubview(loginButton)
-
+        loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         
         createAccountButton.setTitle("Create account", for: .normal)
         createAccountButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
@@ -156,4 +169,9 @@ class WelcomeViewController: UIViewController {
         loginButton.transform = CGAffineTransform(translationX: view.frame.width, y: 0)
         createAccountButton.transform = CGAffineTransform(translationX: -view.frame.width, y: 0)
     }
+    
+    
+    @objc private func loginButtonTapped() {
+            viewModel.handleLoginTap()
+        }
 }
