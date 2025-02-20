@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "mintynLogo.png",
+      "filename" : "mintynLogo-removebg-preview.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "mintynLogo-removebg-preview@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "mintynLogo-removebg-preview@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

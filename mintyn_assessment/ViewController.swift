@@ -11,7 +11,9 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        let welcomeVC = WelcomeViewController()
+            welcomeVC.modalPresentationStyle = .fullScreen
+            present(welcomeVC, animated: true, completion: nil)
     }
 
 
