@@ -5,15 +5,23 @@
 //  Created by DavidOnoh on 2/20/25.
 //
 
-import Foundation
 import UIKit
+import Combine
 
 class CustomTextField: UITextField {
+    private var cancellables = Set<AnyCancellable>()
+
+    var textPublisher: AnyPublisher<String, Never> {
+        NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification, object: self)
+            .compactMap { ($0.object as? UITextField)?.text }
+            .eraseToAnyPublisher()
+    }
+
     init(placeholder: String, isSecure: Bool = false) {
         super.init(frame: .zero)
         
         self.isSecureTextEntry = isSecure
-        self.textColor = .white 
+        self.textColor = .white
         self.tintColor = .white
         
         self.font = UIFont.systemFont(ofSize: 16)
@@ -32,4 +40,5 @@ class CustomTextField: UITextField {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
 
