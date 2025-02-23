@@ -53,7 +53,7 @@ class LoginViewModel: ObservableObject {
             guard let self = self else { return }
             self.isLoading = false
             
-            // Mock authentication
+            // simple Mocked authentication
             if self.phoneNumber == "1234567890" && self.password == "password" {
                 self.loginState = .success
             } else {

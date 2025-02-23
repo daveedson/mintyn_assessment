@@ -14,12 +14,33 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        
-        let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = WelcomeViewController()
-        self.window = window
-        window.makeKeyAndVisible()
+                
+                let window = UIWindow(windowScene: windowScene)
+                let shouldShowHome = UserDefaults.standard.bool(forKey: "didCompleteOnboarding")
+                
+                if shouldShowHome {
+                    window.rootViewController = MainTabBarController() 
+                } else {
+                    window.rootViewController = WelcomeViewController()
+                }
+
+                window.makeKeyAndVisible()
+                self.window = window
+
     }
+    func switchToHomeScreen() {
+           guard let window = self.window else { return }
+           
+           let homeVC = MainTabBarController()
+           UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: {
+               window.rootViewController = homeVC
+               window.backgroundColor = .black
+           })
+           
+           UserDefaults.standard.set(true, forKey: "didCompleteOnboarding")
+       }
+   }
+
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
@@ -49,5 +70,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
 
-}
+
 

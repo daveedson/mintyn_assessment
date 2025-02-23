@@ -177,9 +177,9 @@ class LoginViewController: UIViewController {
     }
 
     private func presentHomeScreen() {
-        let homeVC = UIViewController()
-        homeVC.view.backgroundColor = .white
-        homeVC.modalPresentationStyle = .fullScreen
-        present(homeVC, animated: true)
+        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+            sceneDelegate.switchToHomeScreen()
+        }
     }
+
 }
